@@ -1,0 +1,21 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  li {
+    cursor: pointer;
+    border: 1px solid #000;
+    &:last-child,
+    &:first-child {
+      border: none;
+    }
+    transition: all 0.3s;
+    &:hover {
+      background-color: bisque;
+    }
+    a {
+      padding: 7px 14px;
+      display: block;
+    }
+  }
+}
