@@ -1,13 +1,34 @@
-import React, { useContext } from "react";
-import { BiSearch } from "react-icons/bi";
-import { RxCross1 } from "react-icons/rx";
+import debounce from 'lodash.debounce';
+import React, { useCallback, useContext, useRef, useState } from 'react';
+import { BiSearch } from 'react-icons/bi';
+import { RxCross1 } from 'react-icons/rx';
 
-import { SearchContext } from "../../App";
+import { SearchContext } from '../../App';
 
-import classes from "./Search.module.scss";
+import classes from './Search.module.scss';
 
 export default function Search() {
-  const {searchValue, setSearchValue} = useContext(SearchContext);
+  const [value, setValue] = useState('');
+  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef();
+
+  function onClearSearch() {
+    setSearchValue('');
+    setValue('');
+    inputRef.current.focus();
+  }
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 450),
+    []
+  );
+
+  function onChangeSearch(e) {
+    setValue(e.target.value);
+    updateSearchValue(e.target.value);
+  }
 
   return (
     <div className={classes.root}>
@@ -15,14 +36,15 @@ export default function Search() {
         <BiSearch />
       </i>
       <input
+        ref={inputRef}
         className={classes.input}
-        type="text"
-        placeholder="Введите название пиццы..."
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        type='text'
+        placeholder='Введите название пиццы...'
+        value={value}
+        onChange={onChangeSearch}
       />
-      {searchValue && (
-        <i className={classes.iconClear} onClick={() => setSearchValue("")}>
+      {value && (
+        <i className={classes.iconClear} onClick={onClearSearch}>
           <RxCross1 />
         </i>
       )}
