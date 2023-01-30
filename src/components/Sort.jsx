@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from './store/slices/filterSlice';
 
+export const sortBy = [
+  { name: 'популярности(Desc)', sort: 'rating' },
+  { name: 'популярности(Asc)', sort: '-rating' },
+  { name: 'цене(Desc)', sort: 'price' },
+  { name: 'цене(Asc)', sort: '-price' },
+  { name: 'алфавиту(Desc)', sort: 'name' },
+  { name: 'алфавиту(Asc)', sort: '-name' },
+];
+
 export default function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
 
   const [modal, setModal] = useState(false);
-
-  const sortBy = [
-    { name: 'популярности(Desc)', sort: 'rating' },
-    { name: 'популярности(Asc)', sort: '-rating' },
-    { name: 'цене(Desc)', sort: 'price' },
-    { name: 'цене(Asc)', sort: '-price' },
-    { name: 'алфавиту(Desc)', sort: 'name' },
-    { name: 'алфавиту(Asc)', sort: '-name' },
-  ];
 
   function selectSortHandler(obj) {
     dispatch(setSort(obj));
