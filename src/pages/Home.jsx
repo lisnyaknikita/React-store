@@ -17,41 +17,36 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 import { SearchContext } from '../App';
+import { fetchPizzas } from '../components/store/slices/pizzasSlice';
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-
-  const navigate = useNavigate();
 
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sort);
   const currentPage = useSelector((state) => state.filter.currentPage);
+  const { pizzas, status } = useSelector((state) => state.pizza);
 
-  const dispatch = useDispatch();
-
-  const [pizzas, setPizzas] = useState([]);
-  const [isPizzasLoading, setisPizzasLoading] = useState(false);
-  // const [categoryId, setCategoryId] = useState(0);
-  // const [currentPage, setCurrentPage] = useState(1);
+  // const [isPizzasLoading, setisPizzasLoading] = useState(false);
 
   const { searchValue } = useContext(SearchContext);
 
-  async function fetchPizzas() {
+  async function getPizzas() {
     const order = sortType.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? `&search=${searchValue}` : '';
-    try {
-      setisPizzasLoading(true);
-      const pizzas = await axios.get(
-        `https://63cff232109824043789b00f.mockapi.io/items?page=${currentPage}&limit=4${
-          categoryId > 0 ? `&category=${categoryId}` : ''
-        }&sortBy=${sortType.replace('-', '')}&order=${order}${search}`
-      );
-      setPizzas(pizzas.data);
-      setisPizzasLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(
+      fetchPizzas({
+        order,
+        search,
+        currentPage,
+        categoryId,
+        sortType,
+      })
+    );
   }
 
   useEffect(() => {
@@ -71,7 +66,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
@@ -85,12 +80,12 @@ export default function Home() {
       });
       navigate(`?${queryString}`);
     }
-    isMounted.current = true
+    isMounted.current = true;
   }, [categoryId, sortType, currentPage]);
 
-  const pizzasFIlter = pizzas.map((pizza) => (
-    <PizzaBlock key={pizza.id} pizza={pizza} />
-  ));
+  const pizzasFIlter =
+    pizzas &&
+    pizzas.map((pizza) => <PizzaBlock key={pizza.id} pizza={pizza} />);
 
   function onClickCategory(id) {
     dispatch(setCategoryId(id));
@@ -110,11 +105,16 @@ export default function Home() {
         <Sort />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
-      <div className='content__items'>
-        {isPizzasLoading
-          ? [...new Array(6)].map((_, i) => <MyLoader key={i} />)
-          : pizzasFIlter}
-      </div>
+      {status === 'error' ? (
+        <h2>Error</h2>
+      ) : (
+        <div className='content__items'>
+          {status === 'loading'
+            ? [...new Array(4)].map((_, i) => <MyLoader key={i} />)
+            : pizzasFIlter}
+        </div>
+      )}
+
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </>
   );
