@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addItem } from './store/slices/cartSlice';
 
-export default function PizzaBlock( {pizza} ) {
+export default function PizzaBlock({ pizza }) {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) =>
     state.cart.items.find((item) => item.id === pizza.id)
@@ -29,7 +30,9 @@ export default function PizzaBlock( {pizza} ) {
 
   return (
     <div className='pizza-block'>
-      <img className='pizza-block__image' src={pizza.imageUrl} alt='Pizza' />
+      <Link to={`/pizza/${pizza.id}`}>
+        <img className='pizza-block__image' src={pizza.imageUrl} alt='Pizza' />
+      </Link>
       <h4 className='pizza-block__title'>{pizza.name}</h4>
       <div className='pizza-block__selector'>
         <ul>

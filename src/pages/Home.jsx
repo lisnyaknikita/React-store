@@ -21,6 +21,7 @@ import { fetchPizzas } from '../components/store/slices/pizzasSlice';
 
 export default function Home() {
   const dispatch = useDispatch();
+  const searchValue = useSelector(state => state.filter.searchValue)
   const navigate = useNavigate();
 
   const isSearch = useRef(false);
@@ -33,7 +34,7 @@ export default function Home() {
 
   // const [isPizzasLoading, setisPizzasLoading] = useState(false);
 
-  const { searchValue } = useContext(SearchContext);
+  // const { searchValue } = useContext(SearchContext);
 
   async function getPizzas() {
     const order = sortType.includes('-') ? 'asc' : 'desc';
