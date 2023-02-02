@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCategoryId,
   setCurrentPage,
   setFilters,
-} from '../components/store/slices/filterSlice';
+} from '../store/slices/filterSlice';
 
 import Categories from '../components/Categories';
 import MyLoader from '../components/MyLoader';
@@ -12,24 +12,26 @@ import PizzaBlock from '../components/PizzaBlock';
 import Sort, { sortBy } from '../components/Sort';
 import Pagination from '../components/Pagination/Pagination';
 
-import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-import { SearchContext } from '../App';
-import { fetchPizzas } from '../components/store/slices/pizzasSlice';
+import { fetchPizzas } from '../store/slices/pizzasSlice';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const searchValue = useSelector(state => state.filter.searchValue)
+  //@ts-ignore
+  const searchValue = useSelector((state) => state.filter.searchValue);
   const navigate = useNavigate();
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-
+  //@ts-ignore
   const categoryId = useSelector((state) => state.filter.categoryId);
+  //@ts-ignore
   const sortType = useSelector((state) => state.filter.sort.sort);
+  //@ts-ignore
   const currentPage = useSelector((state) => state.filter.currentPage);
+  //@ts-ignore
   const { pizzas, status } = useSelector((state) => state.pizza);
 
   // const [isPizzasLoading, setisPizzasLoading] = useState(false);
@@ -88,11 +90,11 @@ export default function Home() {
     pizzas &&
     pizzas.map((pizza) => <PizzaBlock key={pizza.id} pizza={pizza} />);
 
-  function onClickCategory(id) {
+  function onClickCategory(id: number) {
     dispatch(setCategoryId(id));
   }
 
-  function onChangePage(number) {
+  function onChangePage(number: number) {
     dispatch(setCurrentPage(number));
   }
 

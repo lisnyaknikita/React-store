@@ -1,15 +1,22 @@
+import { ICartPizza, IPizza } from '../@types/types';
 import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItem } from './store/slices/cartSlice';
+import { addItem } from '../store/slices/cartSlice';
 
-export default function PizzaBlock({ pizza }) {
+interface IPizzaBlockProps {
+  pizza: IPizza;
+}
+
+export default function PizzaBlock({ pizza }: IPizzaBlockProps) {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) =>
+  const cartItem = useSelector<ICartPizza>((state) =>
+  //@ts-ignore
     state.cart.items.find((item) => item.id === pizza.id)
   );
-  const addedCount = cartItem ? cartItem.count : 0;
+  //@ts-ignore
+  const addedCount =  cartItem ? cartItem.count : 0; 
 
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);

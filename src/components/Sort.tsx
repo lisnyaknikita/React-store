@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from './store/slices/filterSlice';
+import { setSort } from '../store/slices/filterSlice';
+import { selectSort } from '../store/slices/filterSlice';
 
-export const sortBy = [
+interface ISortBy {
+  name: string;
+  sort: string;
+}
+
+export const sortBy: ISortBy[] = [
   { name: 'популярности(Desc)', sort: 'rating' },
   { name: 'популярности(Asc)', sort: '-rating' },
   { name: 'цене(Desc)', sort: 'price' },
@@ -12,10 +18,10 @@ export const sortBy = [
 ];
 
 export default function Sort() {
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filter.sort);
+  const sort: any =  useSelector(selectSort);
 
   const [modal, setModal] = useState(false);
 
@@ -25,18 +31,19 @@ export default function Sort() {
   }
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: any) => {
       if (!e.composedPath().includes(sortRef.current)) {
         setModal(false);
       }
     };
     document.body.addEventListener('click', handleClickOutside);
 
-    return ()=>{
-      document.body.removeEventListener('click', handleClickOutside)
-    }
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
   }, []);
-
+  console.log(sort.name);
+  
   return (
     <div ref={sortRef} className='sort'>
       <div className='sort__label'>

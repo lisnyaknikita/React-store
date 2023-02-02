@@ -3,7 +3,13 @@ import ReactPaginate from "react-paginate";
 
 import classes from './Pagination.module.scss'
 
-export default function Pagination({currentPage, onChangePage}) {
+interface IPaginationProps {
+  currentPage: number,
+  onChangePage: (number: number) => void
+}
+
+
+export default function Pagination({currentPage, onChangePage}: IPaginationProps) {
   return (
     <>
       <ReactPaginate

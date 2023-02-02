@@ -1,41 +1,58 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem, removeItem, minusItem } from './store/slices/cartSlice';
+import { addItem, removeItem, minusItem } from '../store/slices/cartSlice';
 
-export default function CartItem(item) {
+interface ICartItemProps {
+  id: string;
+  imageUrl: string;
+  name: string;
+  type: string;
+  size: number;
+  count: number;
+  price: number;
+}
 
-  console.log(item);
+export default function CartItem({
+  id,
+  imageUrl,
+  name,
+  type,
+  size,
+  count,
+  price,
+}: ICartItemProps) {
+  // console.log(item);
   const dispatch = useDispatch();
 
   function onclickPlus() {
     dispatch(
       addItem({
-        id: item.id,
+        id: id,
       })
     );
   }
 
   function onclickMinus() {
-    dispatch(minusItem(item.id));
+    dispatch(minusItem(id));
   }
 
   function onRemoveItem() {
     if (
       window.confirm('Вы дейтвительно хотите удалить этот товар из списка?')
     ) {
-      dispatch(removeItem(item.id));
+      dispatch(removeItem(id));
     }
   }
 
   return (
     <div className='cart__item'>
       <div className='cart__item-img'>
-        <img className='pizza-block__image' src={item.imageUrl} alt='Pizza' />
+        <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
       </div>
       <div className='cart__item-info'>
-        <h3>{item.name}</h3>
+        <h3>{name}</h3>
         <p>
-          {item.type}, {item.size} см.
+          {type}, {size} см.
         </p>
       </div>
       <div className='cart__item-count'>
@@ -60,7 +77,7 @@ export default function CartItem(item) {
             ></path>
           </svg>
         </div>
-        <b>{item.count}</b>
+        <b>{count}</b>
         <div
           onClick={onclickPlus}
           className='button button--outline button--circle cart__item-count-plus'
@@ -84,7 +101,7 @@ export default function CartItem(item) {
         </div>
       </div>
       <div className='cart__item-price'>
-        <b>{item.price * item.count} ₽</b>
+        <b>{price * count} ₽</b>
       </div>
       <div className='cart__item-remove'>
         <div
