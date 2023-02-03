@@ -1,4 +1,4 @@
-import { ICartPizza, IPizza } from '../@types/types';
+import { ICartItem, ICartPizza, IPizza } from '../@types/types';
 import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +24,7 @@ export default function PizzaBlock({ pizza }: IPizzaBlockProps) {
   const typeNames = ['тонкое', 'традиционное'];
 
   function onClickAdd() {
-    const item = {
+    const item: ICartItem = {
       id: pizza.id,
       name: pizza.name,
       price: pizza.price,

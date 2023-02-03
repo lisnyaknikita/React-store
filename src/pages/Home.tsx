@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   setCategoryId,
   setCurrentPage,
@@ -15,10 +15,12 @@ import Pagination from '../components/Pagination/Pagination';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchPizzas } from '../store/slices/pizzasSlice';
+import { fetchPizzas, SearchPizzaParams } from '../store/slices/pizzasSlice';
+// import { AppDispatch } from 'store/store';
+import { useAppDispatch } from 'hooks/hooks';
 
 export default function Home() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   //@ts-ignore
   const searchValue = useSelector((state) => state.filter.searchValue);
   const navigate = useNavigate();
@@ -54,7 +56,7 @@ export default function Home() {
 
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = (qs.parse(window.location.search.substring(1)) as unknown) as SearchPizzaParams;
       const sortType = sortBy.find((obj) => obj.sort === params.sortType);
 
       dispatch(
