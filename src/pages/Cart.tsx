@@ -7,19 +7,20 @@ import { clearItems, selectCart } from '../store/slices/cartSlice';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const {totalPrice, items}: any = useSelector(selectCart);
-  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
+  const { totalPrice, items }: any = useSelector(selectCart);
+  const totalCount = items.reduce(
+    (sum: number, item: any) => sum + item.count,
+    0
+  );
 
   function onClearCart() {
-    if (
-      window.confirm('Вы дейтвительно хотите очистить список?')
-    ) {
+    if (window.confirm('Вы дейтвительно хотите очистить список?')) {
       dispatch(clearItems());
     }
   }
 
   if (!totalPrice) {
-    return <h1>Корзина пустая</h1>
+    return <h1>Корзина пустая</h1>;
   }
 
   return (
@@ -100,9 +101,8 @@ export default function Cart() {
           </div>
         </div>
         <div className='content__items'>
-          {items && items.map((item:any) => (
-            <CartItem key={item.id} {...item} />
-          ))}
+          {items &&
+            items.map((item: any) => <CartItem key={item.id} {...item} />)}
         </div>
         <div className='cart__bottom'>
           <div className='cart__bottom-details'>

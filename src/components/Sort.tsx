@@ -8,6 +8,10 @@ interface ISortBy {
   sort: string;
 }
 
+// type PopupClick = React.MouseEvent<HTMLBodyElement> & {
+//   composedPath(): Node[]
+// }
+
 export const sortBy: ISortBy[] = [
   { name: 'популярности(Desc)', sort: 'rating' },
   { name: 'популярности(Asc)', sort: '-rating' },
@@ -21,21 +25,25 @@ export default function Sort() {
   const sortRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
-  const sort: any =  useSelector(selectSort);
+  const sort: any = useSelector(selectSort);
 
   const [modal, setModal] = useState(false);
 
-  function selectSortHandler(obj) {
+  function selectSortHandler(obj: ISortBy) {
     dispatch(setSort(obj));
     setModal(false);
   }
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (!e.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      const _event = e as MouseEvent & {
+        composedPath(): Node[]
+      }
+      if (!_event.composedPath().includes(sortRef.current)) {
         setModal(false);
       }
     };
+    
     document.body.addEventListener('click', handleClickOutside);
 
     return () => {
@@ -43,7 +51,7 @@ export default function Sort() {
     };
   }, []);
   console.log(sort.name);
-  
+
   return (
     <div ref={sortRef} className='sort'>
       <div className='sort__label'>
