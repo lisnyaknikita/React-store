@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
 import {
   setCategoryId,
   setCurrentPage,
@@ -16,29 +15,19 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 import { fetchPizzas, SearchPizzaParams } from '../store/slices/pizzasSlice';
-// import { AppDispatch } from 'store/store';
-import { useAppDispatch } from 'hooks/hooks';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  //@ts-ignore
-  const searchValue = useSelector((state) => state.filter.searchValue);
+  const searchValue = useAppSelector((state) => state.filter.searchValue);
   const navigate = useNavigate();
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  //@ts-ignore
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  //@ts-ignore
-  const sortType = useSelector((state) => state.filter.sort.sort);
-  //@ts-ignore
-  const currentPage = useSelector((state) => state.filter.currentPage);
-  //@ts-ignore
-  const { pizzas, status } = useSelector((state) => state.pizza);
-
-  // const [isPizzasLoading, setisPizzasLoading] = useState(false);
-
-  // const { searchValue } = useContext(SearchContext);
+  const categoryId = useAppSelector((state) => state.filter.categoryId);
+  const sortType = useAppSelector((state) => state.filter.sort.sort);
+  const currentPage = useAppSelector((state) => state.filter.currentPage);
+  const { pizzas, status } = useAppSelector((state) => state.pizza);
 
   async function getPizzas() {
     const order = sortType.includes('-') ? 'asc' : 'desc';
@@ -56,7 +45,9 @@ export default function Home() {
 
   useEffect(() => {
     if (window.location.search) {
-      const params = (qs.parse(window.location.search.substring(1)) as unknown) as SearchPizzaParams;
+      const params = qs.parse(
+        window.location.search.substring(1)
+      ) as unknown as SearchPizzaParams;
       const sortType = sortBy.find((obj) => obj.sort === params.sortType);
 
       dispatch(

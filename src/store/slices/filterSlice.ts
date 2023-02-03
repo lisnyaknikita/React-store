@@ -3,7 +3,7 @@ import { RootState } from 'store/store';
 
 export type Sort = {
     name: string,
-    sort: 'rating' | 'price' | 'name' | '-rating' | '-price' | '-name'
+    sort: 'rating' | 'price' | 'name' | '-rating' | '-price' | '-name' | string
 }
 
 interface IFilterState {

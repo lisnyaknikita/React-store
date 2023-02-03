@@ -10,11 +10,11 @@ export interface ICartPizza {
 
 export interface ICartItem {
   id: string,
-  name:string,
-  price: number,
-  imageUrl: string,
-  type: string,
-  size: number,
+  name?:string,
+  price?: number,
+  imageUrl?: string,
+  type?: string,
+  size?: number,
   count?: number
 }
 
