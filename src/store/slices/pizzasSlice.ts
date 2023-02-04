@@ -14,7 +14,7 @@ import axios from 'axios';
 export type SearchPizzaParams = {
   order: string;
   search: string;
-  currentPage: string;
+  currentPage: string | number;
   categoryId: number;
   sortType: string;
 };

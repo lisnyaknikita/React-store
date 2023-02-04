@@ -7,9 +7,10 @@ export type Sort = {
 }
 
 interface IFilterState {
-    searchValue: string,
+    searchValue?: string,
+    search?: string,
     categoryId: number,
-    currentPage: number,
+    currentPage: number | string,
     sort?: Sort
     sortType?: Sort
 }
