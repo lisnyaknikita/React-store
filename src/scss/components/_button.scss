@@ -1,8 +1,8 @@
-@import "../variables";
+@import '../variables';
 
 .button {
   display: inline-block;
-  background-color: $orange;
+  background-color: $blue;
   border-radius: 30px;
   padding: 10px 20px;
   min-width: 100px;
@@ -55,21 +55,30 @@
   }
 
   &--outline {
-    background-color: rgb(251, 209, 84);
+    background-color: $blue;
     border-color: transparent;
+    width: 170px;
+    @media (max-width:380px) {
+      width: 155px;
+    }
     &,
     span {
-      color: $blue;
+      color: #fff;
+      margin-left: 10px;
+      // @media (max-width: 600px) {
+      //   margin-left: 0;
+      // }
     }
 
     svg {
       path {
-        fill: $blue;
+        fill: #fff;
       }
+     
     }
 
     &:hover {
-      background-color: darken($color: rgb(251, 209, 84), $amount: 20%);
+      background-color: darken($color: $blue, $amount: 20%);
 
       &,
       span {
@@ -99,6 +108,9 @@
   &--add {
     svg {
       margin-right: 2px;
+      @media (max-width:380px) {
+        display: none;
+      }
     }
 
     span {
@@ -125,7 +137,7 @@
       font-size: 13px;
       line-height: 22px;
       position: relative;
-      top: -1px;
+      top: 0px;
       left: 3px;
     }
   }
@@ -135,6 +147,9 @@
     align-items: center;
     line-height: 23px;
     padding: 12px 25px;
+    @media (max-width:960px) {
+      padding: 10px 15px;
+    }
 
     svg {
       margin-right: 8px;

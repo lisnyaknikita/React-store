@@ -1,9 +1,10 @@
-import { ICartItem, ICartPizza, IPizza } from '../@types/types';
+import { ICartItem, IPizza } from '../@types/types';
 import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addItem } from '../store/slices/cartSlice';
+import { RootState } from 'store/store';
 
 interface IPizzaBlockProps {
   pizza: IPizza;
@@ -11,11 +12,9 @@ interface IPizzaBlockProps {
 
 export default function PizzaBlock({ pizza }: IPizzaBlockProps) {
   const dispatch = useDispatch();
-  const cartItem = useSelector<ICartPizza>((state) =>
-  //@ts-ignore
+  const cartItem = useSelector((state:RootState) =>
     state.cart.items.find((item) => item.id === pizza.id)
   );
-  //@ts-ignore
   const addedCount =  cartItem ? cartItem.count : 0; 
 
   const [activeType, setActiveType] = useState(0);
@@ -40,7 +39,9 @@ export default function PizzaBlock({ pizza }: IPizzaBlockProps) {
       <Link to={`/pizza/${pizza.id}`}>
         <img className='pizza-block__image' src={pizza.imageUrl} alt='Pizza' />
       </Link>
+      <Link to={`/pizza/${pizza.id}`}>
       <h4 className='pizza-block__title'>{pizza.name}</h4>
+      </Link>
       <div className='pizza-block__selector'>
         <ul>
           {pizza.types.map((type) => (

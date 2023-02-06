@@ -2,16 +2,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+  :global {
+    li {
+      &.selected {
+        background-color: #92bffe;
+      }
+    }
+  }
   li {
     cursor: pointer;
-    border: 1px solid #000;
+    border: 1px solid #92bffe;
+    border-radius: 20px;
     &:last-child,
     &:first-child {
-      border: none;
+      background-color: transparent;
+      line-height: 150%;
     }
     transition: all 0.3s;
     &:hover {
-      background-color: bisque;
+      background-color: rgb(122, 168, 247);
     }
     a {
       padding: 7px 14px;

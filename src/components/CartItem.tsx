@@ -21,7 +21,6 @@ export default function CartItem({
   count,
   price,
 }: ICartItemProps) {
-  // console.log(item);
   const dispatch = useDispatch();
 
   function onclickPlus() {
@@ -33,7 +32,11 @@ export default function CartItem({
   }
 
   function onclickMinus() {
-    dispatch(minusItem(id));
+    if (count > 1) {
+      dispatch(minusItem(id));
+    } else {
+      onRemoveItem();
+    }
   }
 
   function onRemoveItem() {
@@ -43,6 +46,7 @@ export default function CartItem({
       dispatch(removeItem(id));
     }
   }
+
 
   return (
     <div className='cart__item'>

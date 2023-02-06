@@ -5,7 +5,7 @@ import {
   setFilters,
 } from '../store/slices/filterSlice';
 
-import Categories from '../components/Categories';
+import Categories, { categories } from '../components/Categories';
 import MyLoader from '../components/MyLoader';
 import PizzaBlock from '../components/PizzaBlock';
 import Sort, { sortBy } from '../components/Sort';
@@ -100,7 +100,7 @@ export default function Home() {
         />
         <Sort />
       </div>
-      <h2 className='content__title'>Все пиццы</h2>
+      <h2 className='content__title'>{categories[categoryId]}</h2>
       {status === 'error' ? (
         <h2>Error</h2>
       ) : (

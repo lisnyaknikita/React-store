@@ -10,15 +10,12 @@ import classes from './Search.module.scss';
 
 export default function Search() {
   const dispatch = useDispatch()
-  // const searchValue = useSelector(state=> state.filter.searchValue)
 
   const [value, setValue] = useState('');
-  // const { searchValue, setSearchValue } = useContext(SearchContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
   function onClearSearch() {
     dispatch(setSearchValue(''))
-    // setSearchValue('');
     setValue('');
     inputRef.current?.focus();
   }

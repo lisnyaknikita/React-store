@@ -2,15 +2,32 @@
     display: flex;
     align-items: center;
     position: relative;
+    left: -6%;
+    @media (max-width:960px) {
+        left: 0;
+    }
 }
 .input{
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid #1e91fe;
     padding: 10px 30px;
     border-radius: 10px;
     width: 300px;
     font-size: 15px;
     &:focus{
-        border: 1px solid rgba(0, 0, 0, 0.5);
+        border: 2px solid #0577e2;
+    }
+    font-family: 'Montserrat', sans-serif;
+    @media (max-width:960px) {
+        width: 200px;
+        font-size: 12px;
+        padding: 10px 25px;
+
+    }
+    @media (max-width:668px) {
+        width: 300px;
+    }
+    @media (max-width:380px) {
+        width: 220px;
     }
 }
 .iconSearch{
@@ -24,6 +41,7 @@
         opacity: 0.8;
 
     }
+    color: #0577e2;
 }
 .iconClear{
     position: absolute;
@@ -36,4 +54,5 @@
         opacity: 0.8;
 
     }
+    color: #0577e2;
 }

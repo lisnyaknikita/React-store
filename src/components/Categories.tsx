@@ -5,16 +5,19 @@ interface ICategoriesProps {
   onClickCategory: (id: number) => void;
 }
 
-export default function Categories({ categoryId, onClickCategory }: ICategoriesProps) {
-  const categories = [
-    'Все',
-    'Мясные',
-    'Вегетарианская',
-    'Гриль',
-    'Острые',
-    'Закрытые',
-  ];
+export const categories = [
+  'Все',
+  'Мясные',
+  'Вегетарианская',
+  'Гриль',
+  'Острые',
+  'Закрытые',
+];
 
+export default function Categories({
+  categoryId,
+  onClickCategory,
+}: ICategoriesProps) {
   return (
     <div className='categories'>
       <ul>

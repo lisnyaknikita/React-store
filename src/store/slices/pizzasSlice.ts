@@ -3,14 +3,6 @@ import { IPizza } from '../../@types/types';
 
 import axios from 'axios';
 
-// interface IFetchPizzasArgs {
-//   order: string;
-//   search: string;
-//   currentPage: string;
-//   sortType: string;
-//   categoryId: number;
-// }
-
 export type SearchPizzaParams = {
   order: string;
   search: string;
@@ -56,20 +48,6 @@ const pizzaSlice = createSlice({
       state.pizzas = action.payload;
     },
   },
-  // extraReducers: {
-  //   [fetchPizzas.pending]: (state, action) => {
-  //       state.status = 'loading'
-  //       state.pizzas = []
-  //     },
-  //   [fetchPizzas.fulfilled]: (state, action) => {
-  //       state.pizzas = action.payload
-  //       state.status = 'succes'
-  //   },
-  //   [fetchPizzas.rejected]: (state, action) => {
-  //       state.status = 'error'
-  //       state.pizzas = []
-  //   },
-  // },
   extraReducers(builder) {
     builder.addCase(fetchPizzas.pending, (state) => {
       state.status = Status.LOADING;

@@ -1,29 +1,61 @@
 @import '../variables';
 
 .categories {
+  @media (max-width:1310px) {
+    max-width: 580px;
+    width: 100%;
+    overflow-y: auto;
+    margin-right: 5px;
+  }
+  @media (max-width:1165px) {
+    max-width: 390px;
+    width: 100%;
+    overflow-y: auto;
+    margin-right: 5px;
+  }
+  @media (max-width:950px) {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+  }
+  @media (max-width:780px) {
+    justify-content: start;
+  }
   ul {
     display: flex;
+    
 
     li {
-      background-color: #f9f9f9;
+      color: #fff;
+      background-color: $blue;
       padding: 13px 30px;
-       border-radius: 30px;
+      border-radius: 30px;
       margin-right: 10px;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.1s ease-in-out;
+      transition: all 0.2s;
       @include noselect();
+      @media (max-width: 1480px) {
+        padding: 8px 20px;
+        margin-right: 5px;
+      }
+      @media (max-width:1165px) {
+        padding: 7px 10px;
+      }
 
       &:hover {
-        background-color: darken(#f9f9f9, 2%);
+        background-color: darken($blue, 5%);
+        transform: translateY(2%);
       }
 
       &:active {
-        background-color: darken(#f9f9f9, 5%);
+        background-color: darken($blue, 10%);
+        transform: translateY(2%);
       }
 
       &.active {
-        background-color: #282828;
+        background-color: darken($blue, 40%);
         color: #fff;
       }
     }

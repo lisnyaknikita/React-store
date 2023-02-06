@@ -1,3 +1,5 @@
+import { ICartItem } from '../@types/types';
+import EmptyCart from 'components/EmptyCart';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,9 +9,9 @@ import { clearItems, selectCart } from '../store/slices/cartSlice';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const { totalPrice, items }: any = useSelector(selectCart);
+  const { totalPrice, items } = useSelector(selectCart);
   const totalCount = items.reduce(
-    (sum: number, item: any) => sum + item.count,
+    (sum: number, item: ICartItem) => sum + item.count,
     0
   );
 
@@ -20,7 +22,9 @@ export default function Cart() {
   }
 
   if (!totalPrice) {
-    return <h1>Корзина пустая</h1>;
+    return (
+      <EmptyCart/>
+    );
   }
 
   return (
